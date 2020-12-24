@@ -7,6 +7,9 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations',
       directory: './samples/database/migrations'
+    },
+    seeds: {
+      directory: './samples/database/seeds'
     }
   }
 };
