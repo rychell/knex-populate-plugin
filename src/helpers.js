@@ -14,6 +14,7 @@ const getValuesToAnOption = (obj, path) => {
 }
 
 const getValueOfObject = (obj, path) => {
+
     const arrPath = path.split('.')
     for (let i = 0; i < arrPath.length; i++) {
         obj = obj[arrPath[i]];

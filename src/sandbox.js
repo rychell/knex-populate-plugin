@@ -71,10 +71,10 @@ valueToUptade = {
     id: 1,
     Nam: "https://ja é"
 }
+alias = "Lula ladrão"
 
 arrNodes = []
 arrNodes[0] = objeto
-alias = "Lula ladrão"
 arrPath = path.split('.')
 
 for (let i = 0; i < arrPath.length; i++) {
@@ -95,5 +95,4 @@ for (let i = arrPath.length; i > 0; i--) {
     }
     arrNodes[i-1][path]=arrNodes[i]
 }
-console.log(JSON.stringify(arrNodes[0], null,2));
 return arrNodes[0]

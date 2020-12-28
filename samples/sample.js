@@ -11,7 +11,13 @@ async function run() {
         .populate([{
             key: 'CustomerID',
             searchOnTable: 'customers',
-            matchingColumn: 'id'
+            matchingColumn: 'id',
+            alias: 'Customer'
+        },{
+            key: 'Customer.AddressID',
+            searchOnTable: 'address',
+            matchingColumn: 'id',
+            alias: 'Address'
         }])
         .exec()
     console.log(cutomersPopulated);
