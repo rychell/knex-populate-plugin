@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const getValuesToAnOption = (obj, path) => {
     if (typeof (path) !== 'string') return []
     if (!path || path === '') return []
@@ -6,7 +7,6 @@ const getValuesToAnOption = (obj, path) => {
     const arrPath = path.split('.')
 
     let currentLevelData = obj
-
     for (let i = 0; i < arrPath.length; i++) {
         currentLevelData = currentLevelData.map(data => data[arrPath[i]])
     }
@@ -25,7 +25,7 @@ const getValueOfObject = (obj, path) => {
 const setValueToObject = (obj, path, data, alias) => {
     // TODO: validate arguments
     arrNodes = []
-    arrNodes[0] = obj
+    arrNodes[0] = _.cloneDeep(obj)
     arrPath = path.split('.')
 
     for (let i = 0; i < arrPath.length; i++) {

@@ -16,11 +16,11 @@ async function run() {
         },{
             key: 'Customer.AddressID',
             searchOnTable: 'address',
-            matchingColumn: 'id',
+            searchColumns: ['id', 'City', 'ZipCode'],
             alias: 'Address'
         }])
         .exec()
-    console.log(cutomersPopulated);
+    console.log(JSON.stringify(cutomersPopulated, null, 2));
 }
 
 run()

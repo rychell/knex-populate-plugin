@@ -6,7 +6,9 @@
   "repository": "https://github.com/rychell/knex-populate-plugin.git",
   "author": "Rychell Sousa",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.20"
+  },
   "scripts": {
     "test": "jest"
   },
