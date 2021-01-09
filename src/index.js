@@ -26,7 +26,7 @@ KnexPopulatePlugin.prototype.populate = function (options) {
 }
 KnexPopulatePlugin.prototype.exec = async function () {
   let dataToPopulate = this.dataToPopulate
-  const verbose = this.verbose
+  const verbose = false
   // const options = this.options
   const knex = this.knex
   const dataset = {}
@@ -59,7 +59,7 @@ KnexPopulatePlugin.prototype.exec = async function () {
         dataset[uniqueKey] = undefined
       }
     }
-
+    
     for (let i = 0; i < dataToPopulate.length; i++) {
       for (let j = 0; j < options.length; j++) {
         let resultadoParaPopular = []
@@ -79,11 +79,21 @@ KnexPopulatePlugin.prototype.exec = async function () {
           if (Array.isArray(currentValueOnKey)) {
             for (let index = 0; index < currentValueOnKey.length; index++) {
               const valueOnKey = currentValueOnKey[index];
+              
               let arrPath = path.split('.')
               pathLength = arrPath.length
-              arrPath[pathLength] = arrPath[pathLength - 1]
-              arrPath[pathLength - 1] = index
+
+              let propertyThatIsAnArrayDepth = pathLength - 1;
+              
+              for (let i = 0; i < arrPath.length; i++) {
+                const path = arrPath.slice(0, i).join('.')
+                const isThisPropertyAnArray = Array.isArray(_.get(dataToPopulate[i],path))
+                if(isThisPropertyAnArray)  propertyThatIsAnArrayDepth = i
+              }
+              arrPath = [...arrPath.slice(0, propertyThatIsAnArrayDepth), index,...arrPath.slice(propertyThatIsAnArrayDepth,pathLength)]
+              
               resultadoParaPopular = dataset[uniqueKey][searchMethod](data => data[option.matchingColumn || 'id'] === valueOnKey)
+              
               populatedData[i] = setValueToObject(dataToPopulate[i], arrPath.join('.'), resultadoParaPopular, alias, keepOriginalKey)
               dataToPopulate[i] = _.cloneDeep(populatedData[i])
             }
