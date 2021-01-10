@@ -45,7 +45,9 @@ async function run() {
               }
             ])
            .exec()
-           console.log(JSON.stringify(customersPopulated, null, 2));}
+           console.log(JSON.stringify(customersPopulated, null, 2));
+        
+        }
 run()
 
 
