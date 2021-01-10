@@ -36,35 +36,16 @@ async function run() {
 
     const customers = await knex('customers').select()
     const customersPopulated = await knexPopulate
-        .loadData(customers)
-        .populate([{
-            key: 'id',
-            searchOnTable: 'orders',
-            matchingColumn: 'CustomerID',
-            alias: 'Orders',
-            keepOriginalKey: true,
-            multiple: true
-        },
-        {
-            key: 'Orders.CustomerID',
-            searchOnTable: 'customers',
-            alias: 'Customer'
-        },
-        {
-            key: 'Orders.Customer.AddressID',
-            searchOnTable: 'address',
-            alias: 'Address'
-        },
-        {
-            key: 'Orders.Customer.Address.id',
-            searchOnTable: 'customers',
-            matchingColumn: 'AddressID',
-            alias: 'Customers',
-            keepOriginalKey: true,
-            multiple:true
-        }])
-    }
-
+            .loadData(customers)
+            .populate([
+              {
+                key: 'AddressID',
+                searchOnTable: 'address',
+                alias: 'Address'
+              }
+            ])
+           .exec()
+           console.log(JSON.stringify(customersPopulated, null, 2));}
 run()
 
 
